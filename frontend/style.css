@@ -106,6 +106,44 @@ body {
     background-color: #218838;
 }
 
+/* Typing indicator styles */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    visibility: hidden; /* Hidden by default */
+}
+
+.typing-indicator span {
+    height: 10px;
+    width: 10px;
+    margin: 0 3px;
+    background-color: #bbb;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: bounce 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .chat-container {

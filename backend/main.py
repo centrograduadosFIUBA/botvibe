@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
+import markdown
 
 # Cargar variables de entorno
 load_dotenv()
@@ -56,7 +57,9 @@ async def chat_endpoint(msg: Message):
                 {"role": "user", "content": user_message}
             ]
         )
-        return {"response": response.choices[0].message.content}
+        # Convertir la respuesta de Markdown a HTML
+        html_response = markdown.markdown(response.choices[0].message.content)
+        return {"response": html_response}
     except Exception as e:
         print(f"Error al comunicarse con OpenAI: {e}")
         return {"response": f"Error: {e}"}

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
     const chatMessages = document.getElementById('chat-messages');
+    const typingIndicator = document.getElementById('typing-indicator');
 
     const sendMessage = async () => {
         const message = userInput.value.trim();
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addMessageToChat(message, 'user');
         userInput.value = '';
+        typingIndicator.style.visibility = 'visible'; // Mostrar animación
 
         try {
             const response = await fetch('http://127.0.0.1:8000/chat', {
@@ -24,10 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            addMessageToChat(data.response, 'gpt');
+            addMessageToChat(data.response, 'gpt', true); // Pasar true para indicar que es HTML
         } catch (error) {
             console.error('Error al enviar mensaje:', error);
             addMessageToChat('Lo siento, hubo un error al comunicarse con el bot.', 'gpt');
+        } finally {
+            typingIndicator.style.visibility = 'hidden'; // Ocultar animación
         }
     };
 
@@ -39,13 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function addMessageToChat(text, sender) {
+    function addMessageToChat(content, sender, isHtml = false) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender);
 
         const bubbleDiv = document.createElement('div');
         bubbleDiv.classList.add('message-bubble');
-        bubbleDiv.textContent = text;
+        
+        if (isHtml) {
+            bubbleDiv.innerHTML = content; // Insertar como HTML
+        } else {
+            bubbleDiv.textContent = content; // Insertar como texto plano
+        }
 
         messageDiv.appendChild(bubbleDiv);
         chatMessages.appendChild(messageDiv);
