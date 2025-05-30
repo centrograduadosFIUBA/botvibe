@@ -5,7 +5,11 @@ Este proyecto proporciona una interfaz de línea de comandos (CLI) y una interfa
 ## Características
 
 *   **Interfaz CLI**: Permite enviar mensajes a GPT-4o Mini directamente desde la terminal.
-*   **Interfaz Web**: Una aplicación web moderna, limpia y responsive para chatear con el bot, con animación de escritura y respuestas en formato HTML.
+*   **Interfaz Web**: Una aplicación web moderna, limpia y responsive para chatear con el bot. Incluye:
+    *   Animación de escritura mientras se espera la respuesta del bot.
+    *   Respuestas del bot renderizadas en formato HTML (soporte básico de Markdown).
+    *   Memoria de conversación para mantener el contexto en la sesión actual.
+    *   Botón para reiniciar la conversación.
 *   **Gestión de Dependencias**: Uso de entornos virtuales y `requirements.txt` para una fácil replicación del entorno.
 *   **Control de Versiones**: Integración con Git para el seguimiento de cambios.
 
